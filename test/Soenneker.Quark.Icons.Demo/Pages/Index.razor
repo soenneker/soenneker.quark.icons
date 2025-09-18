@@ -1,0 +1,258 @@
+﻿@page "/"
+@using Microsoft.Extensions.Logging
+@using Soenneker.Quark.Icons
+@using Soenneker.Quark.Icons.Enums
+@using Soenneker.Quark.Dtos.Colors
+@using Soenneker.Quark.Enums.Size
+
+@inject ILogger<Index> Logger
+
+<section class="hero mb-5">
+    <div>
+        <div class="token mb-3">
+            <i class="fa fa-brands fa-font-awesome"></i>
+            Font Awesome 7 • Bootstrap 5
+        </div>
+        <h1 class="display-4 hero-title mb-3">Beautiful icons, minimal API</h1>
+        <p class="lead hero-subtitle mb-4">Compose crisp, animated icons with families, styles, sizes, flips, and rotations — all in a single, elegant component.</p>
+        <div class="d-flex align-items-center gap-3">
+            <a class="btn btn-info text-dark fw-semibold" href="https://fontawesome.com/icons" target="_blank" rel="noopener">
+                Browse FA Icons
+            </a>
+        </div>
+    </div>
+    <div class="surface icon-showcase text-center p-4">
+        <div class="d-flex justify-content-center gap-4 mb-3">
+            <Icon Name="alarm-clock" IconSize="@IconSize.ThreeX" Family="@IconFamily.Sharp" IconStyle="@IconStyle.Solid" TextColor="@Color.Info" Animation="IconAnimation.Shake"/>
+            <Icon Name="feather" IconSize="@IconSize.ThreeX" Family="@IconFamily.Chisel" IconStyle="@IconStyle.Duotone" TextColor="@Color.Warning" Animation="@IconAnimation.Bounce"/>
+            <Icon Name="hexagon-nodes" IconSize="@IconSize.ThreeX" IconStyle="@IconStyle.Regular" TextColor="@Color.Success" Animation="@IconAnimation.Pulse"/>
+        </div>
+        <div class="text-muted">High-DPI rendering • Animation helpers • Family-aware class logic</div>
+    </div>
+    
+</section>
+
+<section class="surface mb-5">
+    <div class="surface-header d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-2">
+            <i class="fa fa-solid fa-wand-magic-sparkles"></i>
+            <strong>Playground</strong>
+        </div>
+    </div>
+    <div class="surface-body">
+        <div class="row g-4">
+            <div class="col-12 col-lg-6">
+                <div class="d-flex flex-column gap-3">
+                    <div class="row control-row">
+                        <div class="col-6">
+                            <label class="form-label">Name</label>
+                            <div class="input-group">
+                                <input class="form-control" @bind="iconName" @bind:event="oninput" placeholder="e.g. circle-check" />
+                                <button class="btn btn-outline-info" type="button" title="Randomize" @onclick="RandomizeName">
+                                    <i class="fa fa-solid fa-shuffle"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Icon Style</label>
+                            <select class="form-select" @bind="iconStyle">
+                                <option value="">(none)</option>
+                                <option value="@IconStyle.Solid">Solid</option>
+                                <option value="@IconStyle.Regular">Regular</option>
+                                <option value="@IconStyle.Light">Light</option>
+                                <option value="@IconStyle.Thin">Thin</option>
+                                <option value="@IconStyle.Duotone">Duotone</option>
+                                <option value="@IconStyle.Brands">Brands</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row control-row">
+                        <div class="col-6">
+                            <label class="form-label">Family</label>
+                            <select class="form-select" @bind="family">
+                                <option value="">Classic</option>
+                                <option value="@IconFamily.Sharp">Sharp</option>
+                                <option value="@IconFamily.SharpDuotone">SharpDuotone</option>
+                                <option value="@IconFamily.Chisel">Chisel</option>
+                                <option value="@IconFamily.Etch">Etch</option>
+                                <option value="@IconFamily.Jelly">Jelly</option>
+                                <option value="@IconFamily.JellyDuo">JellyDuo</option>
+                                <option value="@IconFamily.JellyFill">JellyFill</option>
+                                <option value="@IconFamily.Notdog">Notdog</option>
+                                <option value="@IconFamily.NotdogDuo">NotdogDuo</option>
+                                <option value="@IconFamily.NotdogFill">NotdogFill</option>
+                                <option value="@IconFamily.Slab">Slab</option>
+                                <option value="@IconFamily.SlabPress">SlabPress</option>
+                                <option value="@IconFamily.Thumbprint">Thumbprint</option>
+                                <option value="@IconFamily.Whiteboard">Whiteboard</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Size</label>
+                            <select class="form-select" @bind="size">
+                                <option value="@IconSize.None">Default</option>
+                                <option value="@IconSize.ExtraSmall">XS</option>
+                                <option value="@IconSize.Small">SM</option>
+                                <option value="@IconSize.Large">LG</option>
+                                <option value="@IconSize.TwoX">2x</option>
+                                <option value="@IconSize.ThreeX">3x</option>
+                                <option value="@IconSize.FourX">4x</option>
+                                <option value="@IconSize.FiveX">5x</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row control-row">
+                        <div class="col-4">
+                            <label class="form-label">Rotate</label>
+                            <select class="form-select" @bind="rotate">
+                                <option value="@IconRotate.None">None</option>
+                                <option value="@IconRotate.R90">90°</option>
+                                <option value="@IconRotate.R180">180°</option>
+                                <option value="@IconRotate.R270">270°</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label">Flip</label>
+                            <select class="form-select" @bind="flip">
+                                <option value="@IconFlip.None">None</option>
+                                <option value="@IconFlip.Horizontal">Horizontal</option>
+                                <option value="@IconFlip.Vertical">Vertical</option>
+                                <option value="@IconFlip.Both">Both</option>
+                            </select>
+                        </div>
+                        <div class="col-4">
+                            <label class="form-label">Animation</label>
+                            <select class="form-select" @bind="animation">
+                                <option value="@IconAnimation.None">None</option>
+                                <option value="@IconAnimation.Spin">Spin</option>
+                                <option value="@IconAnimation.SpinRev">Spin Reverse</option>
+                                <option value="@IconAnimation.Pulse">Pulse</option>
+                                <option value="@IconAnimation.Bounce">Bounce</option>
+                                <option value="@IconAnimation.Shake">Shake</option>
+                                <option value="@IconAnimation.Beat">Beat</option>
+                                <option value="@IconAnimation.Fade">Fade</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row control-row">
+                        <div class="col-6">
+                            <label class="form-label">Text Color</label>
+                            <select class="form-select" @bind="textColorTheme">
+                                <option value="">—</option>
+                                <option value="primary">Primary</option>
+                                <option value="secondary">Secondary</option>
+                                <option value="success">Success</option>
+                                <option value="danger">Danger</option>
+                                <option value="warning">Warning</option>
+                                <option value="info">Info</option>
+                                <option value="light">Light</option>
+                                <option value="dark">Dark</option>
+                            </select>
+                        </div>
+                        <div class="col-6">
+                            <label class="form-label">Custom Color</label>
+                            <input class="form-control" @bind="customColor" @bind:event="oninput" placeholder="#66CCFF or rgb(255 0 0)" />
+                            <div class="form-text">Overrides theme if provided</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 col-lg-6">
+                <div class="surface icon-card text-center">
+                    <div class="py-4">
+                        <Icon Name="@iconName" IconStyle="@iconStyle" Family="@family" IconSize="@size" Rotate="@rotate" Flip="@flip" Animation="@animation" TextColor="@BuildColor()" />
+                    </div>
+                    <div class="icon-title">fa-@iconName</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="surface">
+    <div class="surface-header d-flex align-items-center gap-2">
+        <i class="fa fa-solid fa-grid-2"></i>
+        <strong>Curated examples</strong>
+    </div>
+    <div class="surface-body">
+        <div class="icon-grid">
+            <div class="surface icon-card">
+                <Icon Name="circle-check" IconStyle="@IconStyle.Solid" TextColor="@Color.Success" />
+                <div class="icon-title">Success</div>
+            </div>
+            <div class="surface icon-card">
+                <Icon Name="triangle-exclamation" IconStyle="@IconStyle.Solid" TextColor="@Color.Warning" Animation="@IconAnimation.Bounce" />
+                <div class="icon-title">Warning bounce</div>
+            </div>
+            <div class="surface icon-card">
+                <Icon Name="xmark" IconStyle="@IconStyle.Solid" TextColor="@Color.Danger" Animation="@IconAnimation.Pulse" />
+                <div class="icon-title">Danger pulse</div>
+            </div>
+            <div class="surface icon-card">
+                <Icon Name="user" IconStyle="@IconStyle.Regular" Rotate="@IconRotate.R90" />
+                <div class="icon-title">Rotate 90°</div>
+            </div>
+            <div class="surface icon-card">
+                <Icon Name="arrows-left-right" IconStyle="@IconStyle.Solid" Flip="@IconFlip.Horizontal" />
+                <div class="icon-title">Flip horizontal</div>
+            </div>
+            <div class="surface icon-card">
+                <Icon Name="code" Family="@IconFamily.Sharp" IconStyle="@IconStyle.Solid" IconSize="@IconSize.Large" />
+                <div class="icon-title">Sharp Solid LG</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+@code {
+    private string iconName = "circle-check";
+    private IconStyle? iconStyle = IconStyle.Solid;
+    private IconFamily? family = IconFamily.Classic;
+    private IconSize? size = IconSize.TwoX;
+    private IconRotate? rotate = IconRotate.None;
+    private IconFlip? flip = IconFlip.None;
+    private IconAnimation? animation = IconAnimation.None;
+
+    private string? textColorTheme = string.Empty; // primary, success, ...
+    private string? customColor = string.Empty;
+
+    private static readonly string[] KnownIconNames = new[]
+    {
+        "circle-check", "triangle-exclamation", "xmark", "user",
+        "arrows-left-right", "code", "gear", "house",
+        "magnifying-glass", "download", "upload", "circle-info"
+    };
+
+    protected override void OnInitialized()
+    {
+        iconName = KnownIconNames[Random.Shared.Next(KnownIconNames.Length)];
+    }
+
+    private void RandomizeName()
+    {
+        iconName = KnownIconNames[Random.Shared.Next(KnownIconNames.Length)];
+    }
+
+    private Color BuildColor()
+    {
+        if (!string.IsNullOrWhiteSpace(customColor))
+            return Color.FromCss(customColor!);
+
+        return textColorTheme switch
+        {
+            "primary" => Color.Primary,
+            "secondary" => Color.Secondary,
+            "success" => Color.Success,
+            "danger" => Color.Danger,
+            "warning" => Color.Warning,
+            "info" => Color.Info,
+            "light" => Color.Light,
+            "dark" => Color.Dark,
+            _ => default
+        };
+    }
+}

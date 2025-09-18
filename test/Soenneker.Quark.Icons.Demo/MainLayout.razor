@@ -1,0 +1,30 @@
+﻿@inherits LayoutComponentBase
+
+<div class="app-bg">
+    <nav class="navbar navbar-expand-lg navbar-dark glassy-nav">
+        <div class="container">
+            <a class="navbar-brand fw-semibold" href="/">
+                <i class="fa fa-sharp fa-solid fa-shapes me-2"></i>
+                Quark Icons
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain" aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navMain">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="https://github.com/soenneker" target="_blank" rel="noopener">GitHub</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container py-5">
+        @Body
+    </main>
+
+    <footer class="app-footer text-center py-4 text-muted small">
+        <div class="container">
+            <span>&copy; @DateTime.Now.Year Soenneker • Built with Quark</span>
+        </div>
+    </footer>
+</div>
