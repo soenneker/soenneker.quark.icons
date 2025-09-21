@@ -5,32 +5,44 @@
 
 @inherits Soenneker.Quark.Components.Element
 
-<i @attributes="BuildAttributes()"></i>
+<i @attributes="BuildAttributes()" ></i>
 
 @code {
+    public override string? Name { get; set; } = "Icon";
 
-    [Parameter] public string? Name { get; set; }                  // "camera" or "fa-camera"
+    [Parameter]
+    public string? IconName { get; set; } // "camera" or "fa-camera"
 
     // Classic FA weights: fa-regular, fa-solid, fa-light, fa-thin, fa-duotone, fa-brands
     // (If you prefer geometry+weight, you can keep passing e.g. "fa-regular")
-    [Parameter] public IconStyle? IconStyle { get; set; }
+    [Parameter]
+    public IconStyle? IconStyle { get; set; }
 
     // FA7 “Icon Family” (Classic, Sharp, SharpDuotone, Chisel, Etch, Jelly, Notdog, Slab, Thumbprint, Whiteboard…)
-    [Parameter] public IconFamily? Family { get; set; }
+    [Parameter]
+    public IconFamily? Family { get; set; }
 
     // Optional FA size helpers (fa-xs, fa-sm, fa-lg, fa-2x …)
-    [Parameter] public IconSize? IconSize { get; set; }
+    [Parameter]
+    public IconSize? IconSize { get; set; }
 
-    [Parameter] public Size? Size { get; set; }
+    [Parameter]
+    public Size? Size { get; set; }
 
-    [Parameter] public bool SpinReverse { get; set; }
+    [Parameter]
+    public bool SpinReverse { get; set; }
 
-    [Parameter] public IconRotate? Rotate { get; set; }
-    [Parameter] public int? RotateByDegrees { get; set; }
+    [Parameter]
+    public IconRotate? Rotate { get; set; }
 
-    [Parameter] public IconFlip? Flip { get; set; }
+    [Parameter]
+    public int? RotateByDegrees { get; set; }
 
-    [Parameter] public IconAnimation? Animation { get; set; }
+    [Parameter]
+    public IconFlip? Flip { get; set; }
+
+    [Parameter]
+    public IconAnimation? Animation { get; set; }
 
     protected override Dictionary<string, object> BuildAttributes()
     {
@@ -72,8 +84,8 @@
 
     private static string GetFamilyAndStyleClass(IconFamily? family, IconStyle? weight)
     {
-        string fam = family?.Value ?? string.Empty;  // e.g., "fa-sharp", "fa-jelly-duo"
-        string w   = weight?.Value ?? string.Empty;  // e.g., "fa-regular", "fa-solid"
+        string fam = family?.Value ?? string.Empty; // e.g., "fa-sharp", "fa-jelly-duo"
+        string w = weight?.Value ?? string.Empty; // e.g., "fa-regular", "fa-solid"
 
         // Brands: ignore family completely
         if (w == "fa-brands")
@@ -92,6 +104,6 @@
     }
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    private static string NormalizeIconName(string icon)
-        => icon.StartsWith("fa-", StringComparison.Ordinal) ? icon : $"fa-{icon}";
+    private static string NormalizeIconName(string icon) => icon.StartsWith("fa-", StringComparison.Ordinal) ? icon : $"fa-{icon}";
+
 }

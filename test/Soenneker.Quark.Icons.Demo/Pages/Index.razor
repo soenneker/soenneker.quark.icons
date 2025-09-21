@@ -1,8 +1,8 @@
 ﻿@page "/"
 @using Microsoft.Extensions.Logging
+@using Soenneker.Quark.Components.Builders.Colors
 @using Soenneker.Quark.Icons
 @using Soenneker.Quark.Icons.Enums
-@using Soenneker.Quark.Dtos.Colors
 @using Soenneker.Quark.Enums.Size
 
 @inject ILogger<Index> Logger
@@ -163,7 +163,7 @@
             <div class="col-12 col-lg-6">
                 <div class="surface icon-card text-center">
                     <div class="py-4">
-                        <Icon Name="@iconName" IconStyle="@iconStyle" Family="@family" IconSize="@size" Rotate="@rotate" Flip="@flip" Animation="@animation" TextColor="@BuildColor()" />
+                        <Icon Name="@iconName" IconStyle="@iconStyle" Family="@family" IconSize="@size" Rotate="@rotate" Flip="@flip" Animation="@animation" TextColor="Color.Primary" />
                     </div>
                     <div class="icon-title">fa-@iconName</div>
                 </div>
@@ -235,24 +235,5 @@
     private void RandomizeName()
     {
         iconName = KnownIconNames[Random.Shared.Next(KnownIconNames.Length)];
-    }
-
-    private Color BuildColor()
-    {
-        if (!string.IsNullOrWhiteSpace(customColor))
-            return Color.FromCss(customColor!);
-
-        return textColorTheme switch
-        {
-            "primary" => Color.Primary,
-            "secondary" => Color.Secondary,
-            "success" => Color.Success,
-            "danger" => Color.Danger,
-            "warning" => Color.Warning,
-            "info" => Color.Info,
-            "light" => Color.Light,
-            "dark" => Color.Dark,
-            _ => default
-        };
     }
 }
