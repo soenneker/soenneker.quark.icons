@@ -1,6 +1,6 @@
 using Intellenum;
 
-namespace Soenneker.Quark.Icons.Enums;
+namespace Soenneker.Quark;
 
 /// <summary>
 /// Represents icon family/style. Maps to Font Awesome 6 style classes.

@@ -1,6 +1,6 @@
 using Intellenum;
 
-namespace Soenneker.Quark.Icons.Enums;
+namespace Soenneker.Quark;
 
 [Intellenum<string>]
 public sealed partial class IconSize
