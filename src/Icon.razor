@@ -1,7 +1,6 @@
 @using System.Runtime.CompilerServices
 @using Soenneker.Extensions.String
-@using Soenneker.Quark.Enums.Size
-@using Soenneker.Quark.Icons.Enums
+@using Soenneker.Quark.Enums
 
 @inherits Soenneker.Quark.Element
 
@@ -46,40 +45,40 @@
 
     protected override Dictionary<string, object> BuildAttributes()
     {
-        Dictionary<string, object> attrs = base.BuildAttributes();
+        Attributes = base.BuildAttributes();
 
         // Always include the FA base class first for predictability
-        AppendToClassAttr(attrs, "fa");
+        AppendToClassAttr(Attributes, "fa");
 
         string styleClass = GetFamilyAndStyleClass(Family, IconStyle);
 
         if (styleClass.HasContent())
-            AppendToClassAttr(attrs, styleClass);
+            AppendToClassAttr(Attributes, styleClass);
 
         // Icon name (normalize to fa-*)
         if (Name.HasContent())
-            AppendToClassAttr(attrs, NormalizeIconName(Name!));
+            AppendToClassAttr(Attributes, NormalizeIconName(Name!));
 
         // Helpers (size, spin, rotations, animations)
         if (IconSize is not null && IconSize != IconSize.None)
-            AppendToClassAttr(attrs, IconSize!.Value);
+            AppendToClassAttr(Attributes, IconSize!.Value);
 
         if (SpinReverse)
-            AppendToClassAttr(attrs, "fa-spin-reverse");
+            AppendToClassAttr(Attributes, "fa-spin-reverse");
 
         if (Rotate is not null && Rotate != IconRotate.None)
-            AppendToClassAttr(attrs, Rotate!.Value);
+            AppendToClassAttr(Attributes, Rotate!.Value);
 
         if (RotateByDegrees.HasValue)
-            AppendStyleDeclAttr(attrs, $"--fa-rotate-angle: {RotateByDegrees.Value}deg");
+            AppendStyleDeclAttr(Attributes, $"--fa-rotate-angle: {RotateByDegrees.Value}deg");
 
         if (Flip is not null && Flip != IconFlip.None)
-            AppendToClassAttr(attrs, Flip!.Value);
+            AppendToClassAttr(Attributes, Flip!.Value);
 
         if (Animation is not null && Animation != IconAnimation.None)
-            AppendToClassAttr(attrs, Animation!.Value);
+            AppendToClassAttr(Attributes, Animation!.Value);
 
-        return attrs;
+        return Attributes;
     }
 
     private static string GetFamilyAndStyleClass(IconFamily? family, IconStyle? weight)
